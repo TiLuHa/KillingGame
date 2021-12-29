@@ -6,6 +6,8 @@ import javax.persistence.*;
 
 @Embeddable
 class AccountGame implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	@OneToOne
     public Account acc;
 	
@@ -17,13 +19,7 @@ class AccountGame implements Serializable{
 public class AccountGamePlayerMapping {
 	@EmbeddedId
 	private AccountGame Id;
-
-//	@Id
-//	@OneToOne
-//	public Account acc;
-//	@Id
-//	@OneToOne
-//	public Game game;
+	
 	@OneToOne
 	public Player player;
 }

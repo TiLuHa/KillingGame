@@ -16,7 +16,13 @@ public interface AccountRepository extends CrudRepository<Account, Long>{
 	)
 	Optional<Account> findByName(String name);
 	
-	@Modifying
+	@Query(
+	  value = "SELECT * FROM Account WHERE EMAIL = ?1", 
+	  nativeQuery = true
+	)
+	Optional<Account> findByEmail(String email);
+	
+	@Modifying(clearAutomatically = true)
 	@Transactional
 	@Query(
 	  value = "update Account a set a.password = ? where a.Id = ?",
@@ -24,7 +30,7 @@ public interface AccountRepository extends CrudRepository<Account, Long>{
 	)
 	int updatePassword(String pw, Long Id);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Transactional
 	@Query(
 	  value = "update Account a set a.login_name = ? where a.Id = ?",
@@ -32,7 +38,7 @@ public interface AccountRepository extends CrudRepository<Account, Long>{
 	)
 	int updateLoginName(String loginName, Long Id);
 	
-	@Modifying
+	@Modifying(clearAutomatically = true)
 	@Transactional
 	@Query(
 	  value = "update Account a set a.email = ? where a.Id = ?",

@@ -13,4 +13,7 @@ public class KillingMethod {
 	, unique = true
 	)
 	public String description;
+	
+	@Column
+	private boolean gameUnique;
 }

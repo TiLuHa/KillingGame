@@ -12,11 +12,13 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import iz.netwerk.src.Model.Account;
+import iz.netwerk.src.Model.AccountRoles;
 import iz.netwerk.src.repositories.AccountRepository;
 
 @SpringBootApplication
@@ -25,6 +27,9 @@ public class KillingGameApplication extends SpringBootServletInitializer impleme
 	
 	@Autowired
 	private AccountRepository repo;
+	
+	@Autowired
+	PasswordEncoder encoder;
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
@@ -38,25 +43,23 @@ public class KillingGameApplication extends SpringBootServletInitializer impleme
 
 	@Override
 	public void run(String... args) throws Exception {
-		Account tmp = new Account();
-		tmp.email = "afesaf";
-		tmp.loginName = "awdaaa";
-		tmp.password = "aaaaaaaaaaa";
+		Account tmp = new Account("Admin", encoder.encode("admin"), "admin@admin.admin");
+		tmp.addRole(AccountRoles.ADMIN);
 		repo.save(tmp);
 	}
 	
     // Fix the CORS errors
     @Bean
-    public FilterRegistrationBean simpleCorsFilter() {  
+    public FilterRegistrationBean<CorsFilter> simpleCorsFilter() {  
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();  
         CorsConfiguration config = new CorsConfiguration();  
         config.setAllowCredentials(true); 
         // *** URL below needs to match the Vue client URL and port ***
-        config.setAllowedOrigins(Collections.singletonList("http://localhost:8080")); 
+        config.setAllowedOrigins(Collections.singletonList("*")); 
         config.setAllowedMethods(Collections.singletonList("*"));  
         config.setAllowedHeaders(Collections.singletonList("*"));  
         source.registerCorsConfiguration("/**", config);  
-        FilterRegistrationBean bean = new FilterRegistrationBean<>(new CorsFilter(source));
+        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
         bean.setOrder(Ordered.HIGHEST_PRECEDENCE);  
         return bean;  
     }

@@ -7,4 +7,7 @@ public class Game {
 	@Id
 	@GeneratedValue
 	private Long Id;
+	
+	@OneToOne
+	KillingMethodSet killingMethods;
 }

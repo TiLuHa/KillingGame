@@ -1,5 +1,4 @@
 <template>
-jifjsehfsiejf
   <h1>{{ msg }}</h1>
 </template>
 
