@@ -1,4 +1,4 @@
-package iz.netwerk.src.Model;
+package iz.netzwerk.src.Model;
 
 public enum AccountRoles {
 	USER,

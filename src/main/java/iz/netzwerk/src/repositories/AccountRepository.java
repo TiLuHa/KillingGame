@@ -1,4 +1,4 @@
-package iz.netwerk.src.repositories;
+package iz.netzwerk.src.repositories;
 
 import java.util.Optional;
 
@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import iz.netwerk.src.Model.Account;
+import iz.netzwerk.src.Model.Account;
 
 public interface AccountRepository extends CrudRepository<Account, Long>{
 	@Query(

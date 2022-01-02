@@ -1,4 +1,4 @@
-package iz.netwerk.src;
+package iz.netzwerk.src;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

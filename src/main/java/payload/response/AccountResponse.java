@@ -2,9 +2,9 @@ package payload.response;
 
 import java.util.List;
 
-import iz.netwerk.src.Model.Account;
-import iz.netwerk.src.Model.AccountFlags;
-import iz.netwerk.src.Model.AccountRoles;
+import iz.netzwerk.src.Model.Account;
+import iz.netzwerk.src.Model.AccountFlags;
+import iz.netzwerk.src.Model.AccountRoles;
 
 public class AccountResponse {
 	public Long Id;

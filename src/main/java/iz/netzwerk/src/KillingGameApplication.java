@@ -1,4 +1,4 @@
-package iz.netwerk.src;
+package iz.netzwerk.src;
 
 import java.util.Collections;
 
@@ -17,9 +17,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import iz.netwerk.src.Model.Account;
-import iz.netwerk.src.Model.AccountRoles;
-import iz.netwerk.src.repositories.AccountRepository;
+import iz.netzwerk.src.Model.Account;
+import iz.netzwerk.src.Model.AccountRoles;
+import iz.netzwerk.src.repositories.AccountRepository;
 
 @SpringBootApplication
 @EnableConfigurationProperties

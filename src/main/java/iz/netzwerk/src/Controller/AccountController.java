@@ -1,4 +1,4 @@
-package iz.netwerk.src.Controller;
+package iz.netzwerk.src.Controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -13,11 +13,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.web.bind.annotation.*;
 
-import iz.netwerk.src.UserDetailsImpl;
-import iz.netwerk.src.Model.Account;
-import iz.netwerk.src.repositories.AccountRepository;
+import iz.netzwerk.src.JwtUtils;
+import iz.netzwerk.src.UserDetailsImpl;
+import iz.netzwerk.src.Model.Account;
+import iz.netzwerk.src.repositories.AccountRepository;
 import payload.response.AccountResponse;
-import iz.netwerk.src.JwtUtils;
 
 @RestController
 @RequestMapping("/api/account")

@@ -1,4 +1,4 @@
-package iz.netwerk.src;
+package iz.netzwerk.src;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import iz.netwerk.src.Model.Account;
-import iz.netwerk.src.repositories.AccountRepository;
+import iz.netzwerk.src.Model.Account;
+import iz.netzwerk.src.repositories.AccountRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

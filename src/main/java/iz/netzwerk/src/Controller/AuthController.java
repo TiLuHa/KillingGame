@@ -1,4 +1,4 @@
-package iz.netwerk.src.Controller;
+package iz.netzwerk.src.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import iz.netwerk.src.JwtUtils;
-import iz.netwerk.src.Model.Account;
 import payload.request.LoginRequest;
 import payload.request.RegisterRequest;
 import payload.response.MessageResponse;
-import iz.netwerk.src.repositories.AccountRepository;
+import iz.netzwerk.src.JwtUtils;
+import iz.netzwerk.src.Model.Account;
+import iz.netzwerk.src.repositories.AccountRepository;
 
 @RestController
 @RequestMapping("/api/auth")

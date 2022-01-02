@@ -1,4 +1,4 @@
-package iz.netwerk.src;
+package iz.netzwerk.src;
 
 import java.util.Collection;
 import java.util.List;
@@ -9,8 +9,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import iz.netwerk.src.Model.Account;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import iz.netzwerk.src.Model.Account;
 
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;

@@ -1,4 +1,4 @@
-package iz.netwerk.src;
+package iz.netzwerk.src;
 
 import java.util.Date;
 import java.util.List;
