@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import payload.request.LoginRequest;
 import payload.request.RegisterRequest;
 import payload.response.MessageResponse;
-import iz.netzwerk.src.JwtUtils;
 import iz.netzwerk.src.Model.Account;
+import iz.netzwerk.src.Security.JwtUtils;
 import iz.netzwerk.src.repositories.AccountRepository;
 
 @RestController

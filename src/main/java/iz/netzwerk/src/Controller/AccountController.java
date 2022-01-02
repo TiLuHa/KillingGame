@@ -13,9 +13,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.web.bind.annotation.*;
 
-import iz.netzwerk.src.JwtUtils;
-import iz.netzwerk.src.UserDetailsImpl;
 import iz.netzwerk.src.Model.Account;
+import iz.netzwerk.src.Security.JwtUtils;
+import iz.netzwerk.src.Security.UserDetailsImpl;
 import iz.netzwerk.src.repositories.AccountRepository;
 import payload.response.AccountResponse;
 

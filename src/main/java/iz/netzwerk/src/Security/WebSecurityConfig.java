@@ -1,4 +1,4 @@
-package iz.netzwerk.src;
+package iz.netzwerk.src.Security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -54,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.authorizeRequests().antMatchers("/h2/*").permitAll()
-			.antMatchers("/api/auth/**").permitAll()
+			.antMatchers("/api/auth/**", "/", "/css/**", "/index.html", "/favicon.ico", "/js/**").permitAll()
 			.antMatchers("/api/account/**").authenticated()
 			.anyRequest().authenticated();
 
