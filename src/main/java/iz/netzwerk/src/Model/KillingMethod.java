@@ -15,5 +15,8 @@ public class KillingMethod {
 	public String description;
 	
 	@Column
+	private boolean globalVisible;
+	
+	@Column
 	private boolean gameUnique;
 }

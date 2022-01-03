@@ -1,5 +1,8 @@
 package iz.netzwerk.src.Model;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,6 +11,15 @@ public class Game {
 	@GeneratedValue
 	private Long Id;
 	
-	@OneToOne
-	KillingMethodSet killingMethods;
+	@Column(nullable = false, unique = true)
+	private String name;
+	
+	@OneToMany
+	private List<KillingMethod> killingMethods;
+	
+	@Column
+	private Date startsAt;
+	
+	@Column
+	private Date endsAt;
 }
