@@ -10,13 +10,36 @@ public class KillingMethod {
 	
 	@Column(
 	  nullable = false
-	, unique = true
 	)
-	public String description;
-	
-	@Column
-	private boolean globalVisible;
+	private String description;
 	
 	@Column
 	private boolean gameUnique;
+	
+	public KillingMethod()
+	{
+		this.description = "Not assigned";
+		this.gameUnique = false;
+	}
+	
+	public KillingMethod(String description, boolean gameUnique)
+	{
+		this.description = description;
+		this.gameUnique = gameUnique;
+	}
+	
+	public Long getId()
+	{
+		return this.Id;
+	}
+	
+	public String getDescription()
+	{
+		return this.description;
+	}
+	
+	public boolean getGameUniqunes()
+	{
+		return this.gameUnique;
+	}
 }

@@ -15,7 +15,7 @@ public class Game {
 	private String name;
 	
 	@OneToMany
-	private List<KillingMethod> killingMethods;
+	private List<GameKillingMethod> killingMethods;
 	
 	@Column
 	private Date startsAt;

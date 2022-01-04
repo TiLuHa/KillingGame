@@ -9,7 +9,7 @@ import iz.netzwerk.src.Model.KillingMethod;
 
 public interface KillingMethodRepository extends CrudRepository<KillingMethod, Long>{
 	@Query(
-	  value = "SELECT * FROM Account WHERE LOGIN_NAME = ?1", 
+	  value = "SELECT * FROM KillingMethod WHERE LOGIN_NAME = ?1", 
 	  nativeQuery = true
 	)
 	Optional<KillingMethod> findByName(String name);
