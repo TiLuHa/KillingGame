@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import iz.netzwerk.src.Model.KillingMethod;
 import iz.netzwerk.src.repositories.KillingMethodRepository;
 import payload.request.KillingMethodRequest;
-import payload.request.LoginRequest;
-import payload.response.AccountResponse;
 import payload.response.KillingMethodResponse;
 
 @RestController
@@ -46,10 +47,15 @@ public class KillingMethodController
 		return new KillingMethodResponse(tmp);
 	}
 	
-	@RequestMapping(value = {""},  params = "id", method = RequestMethod.GET)
+	@GetMapping("/{Id}")
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public Optional<KillingMethod> getMethod(@RequestParam("id") Long id)
+	public ResponseEntity<?> getMethod(@PathVariable(value = "Id") Long id)
 	{
-		return repo.findById(id);
+		Optional<KillingMethod> tmp = repo.findById(id);
+		
+		if (tmp.isEmpty())
+			return (ResponseEntity<?>) new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+		
+		return ResponseEntity.ok(tmp.get());
 	}
 }

@@ -1,5 +1,6 @@
 package iz.netzwerk.src.Controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.web.bind.annotation.*;
 
 import iz.netzwerk.src.Model.Account;
@@ -35,11 +35,11 @@ public class AccountController {
 		return ResponseEntity.ok(tmp);
 	}
 	
-	@RequestMapping(value = {""},  params = "name", method = RequestMethod.GET)
-	@PreAuthorize("hasAuthority('ADMIN') or principal.getUsername() == #name")
-	ResponseEntity<?> getAccountByName(@RequestParam("name") String name)
+	@GetMapping("/{Id}")
+	@PreAuthorize("hasAuthority('ADMIN') or principal.getId() == #id")
+	ResponseEntity<?> getAccountById(@PathVariable("Id") Long id)
 	{	
-		Optional<Account> acc = repo.findByName(name);
+		Optional<Account> acc = repo.findById(id);
 		
 		if (acc.isEmpty())
 			return (ResponseEntity<?>) new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
