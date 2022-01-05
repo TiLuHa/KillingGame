@@ -1,5 +1,6 @@
 package iz.netzwerk.src.Model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,4 +23,34 @@ public class Game {
 	
 	@Column
 	private Date endsAt;
+	
+	public Game()
+	{
+		this.killingMethods = new ArrayList<>();
+	}
+	
+	public Long getId()
+	{
+		return this.Id;
+	}
+	
+	public String getName()
+	{
+		return this.name;
+	}
+	
+	public List<GameKillingMethod> getKillingMethods ()
+	{
+		return this.killingMethods;
+	}
+	
+	public Date getStartTime()
+	{
+		return this.startsAt;
+	}
+	
+	public Date getEndTime()
+	{
+		return this.endsAt;
+	}
 }

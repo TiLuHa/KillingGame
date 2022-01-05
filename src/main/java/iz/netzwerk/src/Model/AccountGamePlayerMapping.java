@@ -21,5 +21,8 @@ public class AccountGamePlayerMapping {
 	private AccountGame Id;
 	
 	@OneToOne
-	public Player player;
+	private Player player;
+	
+	@Column
+	private boolean isAdmin;
 }

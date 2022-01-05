@@ -55,9 +55,9 @@ public class KillingGameApplication extends SpringBootServletInitializer impleme
         CorsConfiguration config = new CorsConfiguration();  
         config.setAllowCredentials(true); 
         // *** URL below needs to match the Vue client URL and port ***
-        config.setAllowedOrigins(Collections.singletonList("*")); 
+        config.addAllowedOriginPattern("*");
         config.setAllowedMethods(Collections.singletonList("*"));  
-        config.setAllowedHeaders(Collections.singletonList("*"));  
+        config.setAllowedHeaders(Collections.singletonList("*"));
         source.registerCorsConfiguration("/**", config);  
         FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
         bean.setOrder(Ordered.HIGHEST_PRECEDENCE);  
