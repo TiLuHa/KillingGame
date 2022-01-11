@@ -24,6 +24,9 @@ public class Game {
 	@Column
 	private Date endsAt;
 	
+	@Column(nullable = false, unique = true)
+	private String code;
+
 	public Game()
 	{
 		this.killingMethods = new ArrayList<>();
@@ -52,5 +55,9 @@ public class Game {
 	public Date getEndTime()
 	{
 		return this.endsAt;
+	}
+	
+	public String getCode() {
+		return code;
 	}
 }

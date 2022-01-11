@@ -24,5 +24,5 @@ public class AccountGamePlayerMapping {
 	private Player player;
 	
 	@Column
-	private boolean isAdmin;
+	private boolean isLeader;
 }
