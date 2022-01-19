@@ -4,57 +4,96 @@
       app
       color="primary"
       dark
+      clipped-left
     >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+    
+    <v-app-bar-nav-icon 
+      @click.stop="drawer = !drawer"
+    ></v-app-bar-nav-icon>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+    <v-toolbar-title>KillingGame</v-toolbar-title>
 
-      <v-spacer></v-spacer>
+    <v-spacer />
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+    <v-menu offset-y>
+      <template v-slot:activator="{on, attrs}">
+        <v-avatar
+          color="accent"
+          v-bind="attrs"
+          v-on="on"
+        >
+          <span class="white--text text-h5">CJ</span>
+        </v-avatar>
+      </template>
+      <v-list>
+        <v-list-item
+          v-for="(item, index) in items"
+          :key="index"
+        >
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+    
+
     </v-app-bar>
 
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+      clipped
+    >
+      <v-list
+        nav
+        dense
+      >
+        <v-list-item-group>
+          
+          <router-link to="/login">
+            <v-list-item>
+              <v-list-item-title>Login</v-list-item-title>
+            </v-list-item>
+          </router-link>
+          
+          <router-link to="/register">
+            <v-list-item>
+              <v-list-item-title>Register</v-list-item-title>
+            </v-list-item>
+          </router-link>
+
+          <v-list-item>
+            <v-list-item-title>Fizz</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-title>Buzz</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+
     <v-main>
-      <HelloWorld/>
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
 
 export default {
   name: 'App',
 
   components: {
-    HelloWorld,
   },
 
   data: () => ({
-    //
+    drawer: false,
+    items: [
+        { title: 'Click Me' },
+        { title: 'Click Me' },
+        { title: 'Click Me' },
+        { title: 'Click Me 2' },
+      ]
   }),
 };
 </script>

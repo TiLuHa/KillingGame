@@ -1,28 +1,35 @@
 <template>
-    <div id="formDiv">
-        <form class="md-layout">
-            <div class="md-layout-item"/>
-            <md-card class="md-layout-item md-size-25 md-small-size-100">
-                <md-card-header>
-                    <div class="md-title">Users</div>
-                </md-card-header>
-                <md-card-content>
-                    <md-field>
-                        <label>Username</label>
-                        <md-input v-model="username"></md-input>
-                    </md-field>
-                    <md-field>
-                        <label>Password</label>
-                        <md-input type="password" v-model="password"></md-input>
-                    </md-field>
-                </md-card-content>
-                <md-card-actions>
-                    No Account yet? <a href=""> Create one here!</a>
-                    <md-button type="submit" class="md-primary" :disabled="sending" v-on:click="login()">Login</md-button>
-                </md-card-actions>
-            </md-card>
-            <div class="md-layout-item"/>
-        </form>
+    <div>
+        <v-form>
+            <v-container>
+                <v-text-field
+                    v-model="username"
+                    label="Username"
+                    required
+                ></v-text-field>
+                <v-text-field
+                    v-model="password"
+                    label="Password"
+                    required
+                    type="password"
+                ></v-text-field>
+
+                <v-row>
+                    <v-col>
+                        <p>Noch keinen Benutzer? Erstell dir <router-link to="/register">hier</router-link> einen!</p>
+                    </v-col>
+                    <v-col>
+                        <v-btn
+                            color="primary"
+                            @click="login"
+                            class="float-right"
+                        >
+                            Login
+                        </v-btn>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-form>
     </div>
 </template>
 
