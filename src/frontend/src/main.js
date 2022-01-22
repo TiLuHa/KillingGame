@@ -1,27 +1,17 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
 import App from './App.vue'
 import vuetify from './plugins/vuetify'
-
-import Login from './components/Login.vue'
-import Register from './components/Register.vue'
+import router from './router'
+import store from './store'
+import Axios from 'axios'
 
 Vue.config.productionTip = false
-Vue.use(VueRouter)
 
-
-
-const routes = [
-  {path: '/login', component: Login},
-  {path: '/register', component: Register}
-]
-
-const router = new VueRouter({
-  routes
-})
+Axios.defaults.headers.common['Authorization'] = `Bearer ${store.state.token}`
 
 new Vue({
   vuetify,
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

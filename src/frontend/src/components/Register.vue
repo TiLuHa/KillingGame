@@ -37,7 +37,8 @@
 </template>
 
 <script>
-    const axios = require("axios")
+    import AuthService from '@/AuthService.js'
+    //const axios = require("axios")
     export default {
         name: 'Register',
         data() {
@@ -46,21 +47,37 @@
                 username: "",
                 email: "",
                 password: "",
-                passwordConfirmation: ""
+                passwordConfirmation: "",
+                msg: ""
             }
         },
         methods: {
-            login: function()
-            {
-                axios.post('/api/auth/login',
-                {
-                    "loginName":"Admin",
-                    "password":"admin"
-                })
-                .then(function (response) {
-                    localStorage.accessToken = response.data.token
-                })
+            // login: function()
+            // {
+            //     axios.post('/api/auth/login',
+            //     {
+            //         "loginName":"Admin",
+            //         "password":"admin"
+            //     })
+            //     .then(function (response) {
+            //         localStorage.accessToken = response.data.token
+            //     })
+            // }
+            async register() {
+                try{
+                    const credentials = {
+                        username: this.username,
+                        email: this.email,
+                        password: this.password,
+                        passwordConfirmation: this.passwordConfirmation
+                    }
+                    const response = await AuthService.signUp(credentials)
+                    this.msg = response.msg
+                } catch (error) {
+                    this.msg = error.response.data.msg
+                }
             }
+
         }
     }
 </script>

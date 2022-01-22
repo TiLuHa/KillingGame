@@ -34,29 +34,50 @@
 </template>
 
 <script>
-    const axios = require("axios")
+    import AuthService from '@/AuthService.js'
+    //const axios = require("axios")
     export default {
         name: 'Login',
         data() {
             return {
                 sending: false,
                 username: "",
-                password: ""
+                password: "",
+                msg: ""
             }
         },
         methods: {
-            login: function()
-            {
-                this.sending = true
-                axios.post('/api/auth/login',
-                {
-                    "loginName":"Admin",
-                    "password":"admin"
-                })
-                .then(function (response) {
-                    localStorage.accessToken = response.data.token
-                    localStorage.userData = response.data
-                })
+            // login: function()
+            // {
+            //     this.sending = true
+            //     axios.post('/api/auth/login',
+            //     {
+            //         "loginName":"Admin",
+            //         "password":"admin"
+            //     })
+            //     .then(function (response) {
+            //         localStorage.accessToken = response.data.token
+            //         localStorage.userData = response.data
+            //     })
+            // }
+            async login() {
+                try {
+                    const credentials = {
+                        username: this.username,
+                        password: this.password
+                    }
+                    const response = await AuthService.login(credentials)
+                    this.msg = response.msg
+
+                    const token = response.token
+                    const user = response.user
+
+                    this.$store.dispatch('login', {token, user})
+
+                    this.$router.push('/')
+                } catch (error) {
+                    this.msg = error.response.data.msg
+                }
             }
         }
     }
