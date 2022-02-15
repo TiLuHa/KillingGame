@@ -12,7 +12,7 @@ public class Game {
 	@GeneratedValue
 	private Long Id;
 	
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String name;
 	
 	@OneToMany
@@ -27,6 +27,13 @@ public class Game {
 	@Column(nullable = false, unique = true)
 	private String code;
 
+	public Game(String name)
+	{
+		this.killingMethods = new ArrayList<>();
+		this.name = name;
+		
+	}
+	
 	public Game()
 	{
 		this.killingMethods = new ArrayList<>();
