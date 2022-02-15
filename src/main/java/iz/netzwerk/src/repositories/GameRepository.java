@@ -14,4 +14,10 @@ public interface GameRepository extends CrudRepository<Game, Long>{
 		nativeQuery = true
 	)
 	Optional<Game> findByName(String name);
+	
+	@Query(
+			value = "SELECT * FROM GAME WHERE CODE = ?1", 
+			nativeQuery = true
+	)
+	Optional<Game> findByCode(String code);
 }

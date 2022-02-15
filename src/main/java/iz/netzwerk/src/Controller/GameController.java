@@ -2,10 +2,8 @@ package iz.netzwerk.src.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import iz.netzwerk.src.Model.Game;
+import iz.netzwerk.src.helper.Helper;
 import iz.netzwerk.src.repositories.GameRepository;
 import payload.request.GameRequest;
-import payload.response.AccountResponse;
 import payload.response.GameResponse;
 
 @RestController
@@ -26,6 +24,9 @@ public class GameController
 {
 	@Autowired
 	GameRepository repo;
+	
+	@Autowired
+	Helper helper;
 	
 	@GetMapping("")
 	@PreAuthorize("hasAuthority('ADMIN')")
@@ -39,12 +40,7 @@ public class GameController
 	@PostMapping("")
 	public ResponseEntity<?> createGame(@RequestBody GameRequest gameRequest)
 	{
-		Optional<Game> gm = repo.findByName(gameRequest.name);
-		
-		if (gm.isEmpty())
-			return (ResponseEntity<?>) new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
-		
-		return ResponseEntity.ok(new GameResponse(gm.get()));
+		return ResponseEntity.ok(repo.save(new Game(gameRequest.name, helper.generateUniqueGameCode())));
 	}
 	
 }

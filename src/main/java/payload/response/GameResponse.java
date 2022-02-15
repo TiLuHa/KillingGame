@@ -12,6 +12,7 @@ public class GameResponse {
 	public List<GameKillingMethod> killingMethods;
 	public Date startsAt;
 	public Date endsAt;
+	public String code;
 	
 	public GameResponse(Game g)
 	{
@@ -20,5 +21,6 @@ public class GameResponse {
 		this.killingMethods = g.getKillingMethods();
 		this.startsAt = g.getStartTime();
 		this.endsAt = g.getEndTime();
+		this.code = g.getCode();
 	}
 }
