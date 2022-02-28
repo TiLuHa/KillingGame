@@ -3,6 +3,7 @@ package payload.response;
 import java.util.Date;
 import java.util.List;
 
+import iz.netzwerk.src.Model.Account;
 import iz.netzwerk.src.Model.Game;
 import iz.netzwerk.src.Model.GameKillingMethod;
 
@@ -13,6 +14,7 @@ public class GameResponse {
 	public Date startsAt;
 	public Date endsAt;
 	public String code;
+	public Account creator;
 	
 	public GameResponse(Game g)
 	{
@@ -22,5 +24,6 @@ public class GameResponse {
 		this.startsAt = g.getStartTime();
 		this.endsAt = g.getEndTime();
 		this.code = g.getCode();
+		this.creator = g.getCreator();
 	}
 }

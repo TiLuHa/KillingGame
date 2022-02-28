@@ -13,16 +13,31 @@ class AccountGame implements Serializable{
 	
 	@OneToOne
     public Game game;
+	
+	public AccountGame(Account acc, Game game) {
+		this.acc = acc;
+		this.game = game;
+	}
+	
+	public AccountGame() {}
 }
 
 @Entity
 public class AccountGamePlayerMapping {
 	@EmbeddedId
-	private AccountGame Id;
+	public AccountGame Id;
 	
 	@OneToOne
-	private Player player;
+	public Player player;
 	
 	@Column
-	private boolean isLeader;
+	public boolean isAdmin;
+	
+	public AccountGamePlayerMapping(Account acc, Game game, Player player, boolean isAdmin){
+		this.Id = new AccountGame(acc, game);
+		this.player = player;
+		this.isAdmin = isAdmin;
+	}
+	
+	public AccountGamePlayerMapping() {}
 }

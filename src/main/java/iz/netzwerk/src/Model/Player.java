@@ -1,7 +1,6 @@
 package iz.netzwerk.src.Model;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.*;
 
@@ -23,6 +22,31 @@ public class Player {
 	@Column
 	private Date diedAt;
 	
-	@OneToMany
-	private List<Game> adminOfGames;
+	public Player()
+	{}
+	
+	public Player(String nickName)
+	{
+		this.nickName = nickName;
+	}
+
+	public Long getId() {
+		return Id;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public Mission getMission() {
+		return mission;
+	}
+
+	public Date getMissionRequestedAt() {
+		return missionRequestedAt;
+	}
+
+	public Date getDiedAt() {
+		return diedAt;
+	}
 }

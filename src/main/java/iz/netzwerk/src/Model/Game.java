@@ -26,12 +26,16 @@ public class Game {
 	
 	@Column(nullable = false, unique = true)
 	private String code;
+	
+	@OneToOne(optional = false)
+	private Account creator;
 
-	public Game(String name, String code)
+	public Game(String name, String code, Account creator)
 	{
 		this.killingMethods = new ArrayList<>();
 		this.name = name;
 		this.code = code;
+		this.creator = creator;
 	}
 	
 	public Game()
@@ -64,7 +68,13 @@ public class Game {
 		return this.endsAt;
 	}
 	
-	public String getCode() {
+	public String getCode()
+	{
 		return code;
+	}
+	
+	public Account getCreator()
+	{
+		return creator;
 	}
 }
