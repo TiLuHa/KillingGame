@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import iz.netzwerk.src.Model.AccountGamePlayerMapping;
@@ -68,10 +69,10 @@ public class GameController
 		return ResponseEntity.ok(repo.save(new Game(gameRequest.name, helper.generateUniqueGameCode(), ACCrepo.findById(details.getId()).get())));
 	}
 	
-	@PutMapping("")
-	public ResponseEntity<?> addPlayerToGame(@RequestBody GameJoinRequest gameJoinRequest, Principal p)
+	@PostMapping("/join")
+	public ResponseEntity<?> addPlayerToGame(@RequestParam(value = "code") String gameCode, @RequestBody GameJoinRequest gameJoinRequest, Principal p)
 	{	
-		Optional<Game> game = repo.findByCode(gameJoinRequest.gameCode);
+		Optional<Game> game = repo.findByCode(gameCode);
 		
 		if (game.isEmpty())
 			return (ResponseEntity<?>) new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
