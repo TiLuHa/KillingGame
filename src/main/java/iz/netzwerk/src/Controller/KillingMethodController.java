@@ -41,7 +41,7 @@ public class KillingMethodController
 	public KillingMethodResponse addMethod(@RequestBody KillingMethodRequest killingMethodRequest)
 	{
 		KillingMethod tmp = new KillingMethod(killingMethodRequest.description, killingMethodRequest.gameUnique);
-		repo.save(tmp);
+		tmp = repo.save(tmp);
 		return new KillingMethodResponse(tmp);
 	}
 	

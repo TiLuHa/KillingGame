@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import payload.request.LoginRequest;
 import payload.request.RegisterRequest;
+import payload.response.AccountResponse;
 import payload.response.MessageResponse;
 import iz.netzwerk.src.Model.Account;
 import iz.netzwerk.src.Security.JwtUtils;
@@ -64,8 +65,8 @@ public class AuthController {
 							 encoder.encode(signUpRequest.password),
 							 signUpRequest.email);
 
-		userRepository.save(user);
+		user = userRepository.save(user);
 
-		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+		return ResponseEntity.ok(new AccountResponse(user));
 	}
 }

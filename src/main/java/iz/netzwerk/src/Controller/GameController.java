@@ -90,7 +90,8 @@ public class GameController
 		return ResponseEntity.ok(AGPrepo.save(new AccountGamePlayerMapping( ACCrepo.findById(details.getId()).get()
 				                                                          , game.get()
 				                                                          , playerRepo.save(new Player(gameJoinRequest.nickName))
-				                                                          , gameJoinRequest.claimLeaderShip)
+				                                                          , gameJoinRequest.claimLeaderShip
+				                                                          )
 											 )
 				                );
 	}
