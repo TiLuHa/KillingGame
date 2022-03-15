@@ -8,12 +8,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,12 +52,37 @@ public class GameController
 	Helper helper;
 	
 	@GetMapping("")
-	@PreAuthorize("hasAuthority('ADMIN')")
-	public List<GameResponse> getGames()
+	public List<GameResponse> getGames(Principal p)
 	{
+		UserDetailsImpl details = helper.getUserDetails(p);
 		List<GameResponse> tmp = new ArrayList<>();
-		repo.findAll().forEach((game) -> tmp.add(new GameResponse(game)));;
+		
+		if (details.getAuthorities().contains(new SimpleGrantedAuthority(AccountRoles.ADMIN.name())))
+		{
+			repo.findAll().forEach((game) -> tmp.add(helper.assembleGameResponse(game)));
+		}
+		else
+		{
+			List<AccountGamePlayerMapping> agpMappings = AGPrepo.getEntriesByAccount(details.getId());
+			agpMappings.forEach((m) -> tmp.add(new GameResponse(m.Id.game, helper.getLeadersOfGame(m.Id.game))));
+		}
+		
 		return tmp;
+	}
+	
+	@GetMapping("/{code}")
+	ResponseEntity<?> getGameByCode(@PathVariable("code") String code, Principal p)
+	{
+		UserDetailsImpl details = helper.getUserDetails(p);
+		Optional<Game> tmp = repo.findByCode(code);
+		
+		if (tmp.isEmpty())
+			return (ResponseEntity<?>) new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+		
+		if (helper.isAccountPartOfGame(tmp.get(), ACCrepo.findById(details.getId()).get()).isEmpty())
+			return ResponseEntity.ok(new GameResponse(tmp.get()));
+		else
+			return ResponseEntity.ok(new GameResponse(tmp.get(), helper.getLeadersOfGame(tmp.get())));
 	}
 	
 	@PostMapping("")
@@ -66,7 +90,7 @@ public class GameController
 	{
 		UserDetailsImpl details = (UserDetailsImpl) ((UsernamePasswordAuthenticationToken)p).getPrincipal();
 		
-		return ResponseEntity.ok(repo.save(new Game(gameRequest.name, helper.generateUniqueGameCode(), ACCrepo.findById(details.getId()).get())));
+		return ResponseEntity.ok(new GameResponse(repo.save(new Game(gameRequest.name, helper.generateUniqueGameCode(), ACCrepo.findById(details.getId()).get()))));
 	}
 	
 	@PostMapping("/join")
@@ -87,13 +111,17 @@ public class GameController
 			return (ResponseEntity<?>) new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
 		}
 		
-		return ResponseEntity.ok(AGPrepo.save(new AccountGamePlayerMapping( ACCrepo.findById(details.getId()).get()
-				                                                          , game.get()
-				                                                          , playerRepo.save(new Player(gameJoinRequest.nickName))
-				                                                          , gameJoinRequest.claimLeaderShip
-				                                                          )
-											 )
-				                );
+		if (helper.isAccountPartOfGame(game.get(), ACCrepo.findById(details.getId()).get()).isPresent() && !gameJoinRequest.claimLeaderShip)
+			return (ResponseEntity<?>) new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+		
+		AGPrepo.save(new AccountGamePlayerMapping( ACCrepo.findById(details.getId()).get()
+                							     , game.get()
+                							     , playerRepo.save(new Player(gameJoinRequest.nickName))
+                							     , gameJoinRequest.claimLeaderShip
+                								 )
+					);
+		
+		return ResponseEntity.ok(helper.assembleGameResponse(game.get()));
 	}
 	
 }

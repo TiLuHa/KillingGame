@@ -22,6 +22,9 @@ public class Player {
 	@Column
 	private Date diedAt;
 	
+	@Column
+	private long score;
+	
 	public Player()
 	{}
 	
@@ -48,5 +51,9 @@ public class Player {
 
 	public Date getDiedAt() {
 		return diedAt;
+	}
+	
+	public long getScore() {
+		return score;
 	}
 }
