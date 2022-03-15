@@ -27,7 +27,7 @@ public class Game {
 	@Column(nullable = false, unique = true)
 	private String code;
 	
-	@OneToOne(optional = false)
+	@ManyToOne(optional = false)
 	private Account creator;
 
 	public Game(String name, String code, Account creator)

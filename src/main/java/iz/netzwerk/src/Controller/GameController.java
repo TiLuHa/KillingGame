@@ -64,7 +64,7 @@ public class GameController
 		else
 		{
 			List<AccountGamePlayerMapping> agpMappings = AGPrepo.getEntriesByAccount(details.getId());
-			agpMappings.forEach((m) -> tmp.add(new GameResponse(m.Id.game, helper.getLeadersOfGame(m.Id.game))));
+			agpMappings.forEach((m) -> tmp.add(helper.assembleGameResponse(m.Id.game)));
 		}
 		
 		return tmp;
@@ -79,10 +79,10 @@ public class GameController
 		if (tmp.isEmpty())
 			return (ResponseEntity<?>) new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
 		
-		if (helper.isAccountPartOfGame(tmp.get(), ACCrepo.findById(details.getId()).get()).isEmpty())
-			return ResponseEntity.ok(new GameResponse(tmp.get()));
+		if (helper.isAccountPartOfGame(tmp.get(), ACCrepo.findById(details.getId()).get()).isPresent())
+			return ResponseEntity.ok(helper.assembleGameResponse(tmp.get()));
 		else
-			return ResponseEntity.ok(new GameResponse(tmp.get(), helper.getLeadersOfGame(tmp.get())));
+			return ResponseEntity.ok(new GameResponse(tmp.get()));
 	}
 	
 	@PostMapping("")

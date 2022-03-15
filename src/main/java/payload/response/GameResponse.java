@@ -1,6 +1,7 @@
 package payload.response;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import iz.netzwerk.src.Model.Account;
@@ -31,6 +32,8 @@ public class GameResponse {
 		this.endsAt = g.getEndTime();
 		this.code = g.getCode();
 		this.creator = g.getCreator();
+		this.leaders = new LinkedList<>();
+		this.players = new LinkedList<>();
 	}
 
 	public GameResponse(Game g, List<Player> leaders)

@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Login from './components/Login.vue'
-import Register from './components/Register.vue'
-import Home from './components/HelloWorld.vue'
+import Login from './pages/Login.vue'
+import Register from './pages/Register.vue'
+import Home from './pages/Home.vue'
+import CreateGame from './pages/CreateGame.vue'
 
 Vue.use(VueRouter)
 
@@ -19,6 +20,10 @@ const routes = [
   {
     path: '/register',
     component: Register
+  },
+  {
+    path: '/createGame',
+    component: CreateGame
   }
 ]
 

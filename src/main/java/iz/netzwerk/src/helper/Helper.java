@@ -37,8 +37,8 @@ public class Helper {
 	
 	public GameResponse assembleGameResponse(Game g)
 	{
-		List<Player> players = (List<Player>) playerRepo.findAllById(agpRepo.getLeaderIdsOfGame(g.getId()));
-		List<Player> leaders = (List<Player>) playerRepo.findAllById(agpRepo.getPlayerIdsOfGame(g.getId()));
+		List<Player> leaders = (List<Player>) playerRepo.findAllById(agpRepo.getLeaderIdsOfGame(g.getId()));
+		List<Player> players = (List<Player>) playerRepo.findAllById(agpRepo.getPlayerIdsOfGame(g.getId()));
 		return new GameResponse(g, players, leaders);
 	}
 	

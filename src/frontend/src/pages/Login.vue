@@ -63,7 +63,7 @@
             async login() {
                 try {
                     const credentials = {
-                        username: this.username,
+                        loginName: this.username,
                         password: this.password
                     }
                     const response = await AuthService.login(credentials)

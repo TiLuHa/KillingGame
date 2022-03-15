@@ -10,7 +10,7 @@ export default {
   },
   signUp(credentials) {
     return axios
-      .post(url + 'register/', credentials)
+      .post(url + 'auth/register', credentials)
       .then(response => response.data)
   },
   getSecretContent() {

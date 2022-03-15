@@ -26,7 +26,7 @@
                 ></v-text-field>
                     <v-btn
                         color="primary"
-                        @click="login"
+                        @click="register"
                         class="float-right"
                     >
                         Register
@@ -52,24 +52,12 @@
             }
         },
         methods: {
-            // login: function()
-            // {
-            //     axios.post('/api/auth/login',
-            //     {
-            //         "loginName":"Admin",
-            //         "password":"admin"
-            //     })
-            //     .then(function (response) {
-            //         localStorage.accessToken = response.data.token
-            //     })
-            // }
             async register() {
                 try{
                     const credentials = {
-                        username: this.username,
+                        loginName: this.username,
                         email: this.email,
-                        password: this.password,
-                        passwordConfirmation: this.passwordConfirmation
+                        password: this.password
                     }
                     const response = await AuthService.signUp(credentials)
                     this.msg = response.msg
