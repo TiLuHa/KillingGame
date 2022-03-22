@@ -1,10 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Login from './pages/Login.vue'
-import Register from './pages/Register.vue'
 import Home from './pages/Home.vue'
 import CreateGame from './pages/CreateGame.vue'
+import PlayerGameView from './pages/PlayerGameView.vue'
 
 Vue.use(VueRouter)
 
@@ -14,16 +13,12 @@ const routes = [
     component: Home
   },
   {
-    path: '/login',
-    component: Login
-  },
-  {
-    path: '/register',
-    component: Register
-  },
-  {
     path: '/createGame',
     component: CreateGame
+  },
+  {
+    path: '/Games',
+    component: PlayerGameView
   }
 ]
 

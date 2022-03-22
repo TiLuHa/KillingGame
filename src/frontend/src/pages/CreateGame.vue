@@ -31,7 +31,7 @@ export default {
     clickCreateGame() {
       const response = this.createGame()
       response.then(response => {
-        console.log(response.code);
+        console.log(response.code)
         this.joinGameAsLeader(response.code)
       })
     },

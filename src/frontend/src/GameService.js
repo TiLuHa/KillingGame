@@ -12,5 +12,10 @@ export default {
     return axios
     .post(url + '/join', data, { params: {code}})
     .then(response => response.data)
+  },
+  getGames(data){
+    return axios
+      .get(url + '', data)
+      .then(response => response.data)
   }
 }
