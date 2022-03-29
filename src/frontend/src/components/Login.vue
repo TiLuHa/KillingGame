@@ -75,7 +75,7 @@
 
                     this.$store.dispatch('login', {token, user})
 
-                    this.$router.push('/')
+                    // this.$router.push('/')
                 } catch (error) {
                     this.msg = error.response.data.msg
                 }

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from './store'
 
 const url = 'http://localhost:3000/api/'
 
@@ -16,5 +17,12 @@ export default {
   getSecretContent() {
     return axios.get(url + 'test/')
       .then(response => response.data)
+  },
+  isAuthenticated() {
+    return store.getters.isLoggedIn
+  },
+  getUser() {
+    console.log(store.getters.getUser)
+    return store.getters.getUser
   }
 }

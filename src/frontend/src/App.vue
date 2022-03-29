@@ -14,13 +14,17 @@
       <v-menu v-if="this.$store.getters.isLoggedIn" offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-avatar color="accent" v-bind="attrs" v-on="on">
-            <span class="white--text text-h5">CJ</span>
+            <span class="white--text text-h5">{{ username.name }}</span>
           </v-avatar>
         </template>
         <v-list>
-          <v-list-item v-for="(item, index) in items" :key="index">
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item>
+          <v-list-item-group>
+            <template v-for="(item, index) in items">
+              <v-list-item :key="index" @click="logout">
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item>
+            </template>
+          </v-list-item-group>
         </v-list>
       </v-menu>
       <div v-else>
@@ -52,19 +56,15 @@
 
     <v-navigation-drawer v-model="drawer" app clipped>
       <v-list nav dense>
-        <v-list-item-group>
-          <v-list-item>
-            <router-link to="/createGame">
-              <v-list-item-title>Neues Spiel erstellen</v-list-item-title>
-            </router-link>
+        <template v-for="(route, index) in routes">
+          <v-list-item :key="index" :to="route.path">
+            <v-list-item-content>
+              <v-list-item-title>
+                {{ route.name }}
+              </v-list-item-title>
+            </v-list-item-content>
           </v-list-item>
-
-          <v-list-item>
-            <router-link to="/Games">
-              <v-list-item-title>Spielübersicht</v-list-item-title>
-            </router-link>
-          </v-list-item>
-        </v-list-item-group>
+        </template>
       </v-list>
     </v-navigation-drawer>
 
@@ -75,8 +75,10 @@
 </template>
 
 <script>
-import Login from './components/Login.vue';
-import Register from './components/Register.vue';
+import Login from './components/Login.vue'
+import Register from './components/Register.vue'
+import { routes } from './router'
+import AuthService from './AuthService'
 
 export default {
   name: 'App',
@@ -87,16 +89,18 @@ export default {
   data: () => ({
     drawer: false,
     items: [
-      { title: 'Click Me' },
-      { title: 'Click Me' },
-      { title: 'Click Me' },
-      { title: 'Click Me 2' },
-    ]
+      { title: 'Ausloggen', action: 'logout' }
+    ],
+    routes: routes,
+    username: AuthService.getUser()
   }),
   methods: {
-    isLoggedIn() {
-      return this.$store.getters.isLoggedIn
+    logout() {
+      this.$store.dispatch('logout')
     }
+    // isLoggedIn() {
+    //   return this.$store.getters.isLoggedIn
+    // }
   }
 };
 </script>
