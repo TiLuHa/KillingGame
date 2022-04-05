@@ -33,7 +33,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.name !== 'Home' && !AuthService.isAuthenticated()) next({ path: '/' })
+  if (to.name !== 'Home' && !AuthService.isAuthenticated()) next({ name: 'Home' })
   else next()
 })
 
