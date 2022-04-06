@@ -59,12 +59,12 @@ public class GameController
 		
 		if (details.getAuthorities().contains(new SimpleGrantedAuthority(AccountRoles.ADMIN.name())))
 		{
-			repo.findAll().forEach((game) -> tmp.add(helper.assembleGameResponse(game)));
+			repo.findAll().forEach((game) -> tmp.add(helper.assembleGameResponse(game, details.getId())));
 		}
 		else
 		{
 			List<AccountGamePlayerMapping> agpMappings = AGPrepo.getEntriesByAccount(details.getId());
-			agpMappings.forEach((m) -> tmp.add(helper.assembleGameResponse(m.Id.game)));
+			agpMappings.forEach((m) -> tmp.add(helper.assembleGameResponse(m.Id.game, details.getId())));
 		}
 		
 		return tmp;
@@ -80,7 +80,7 @@ public class GameController
 			return (ResponseEntity<?>) new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
 		
 		if (helper.isAccountPartOfGame(tmp.get(), ACCrepo.findById(details.getId()).get()).isPresent())
-			return ResponseEntity.ok(helper.assembleGameResponse(tmp.get()));
+			return ResponseEntity.ok(helper.assembleGameResponse(tmp.get(), details.getId()));
 		else
 			return ResponseEntity.ok(new GameResponse(tmp.get()));
 	}
@@ -121,7 +121,7 @@ public class GameController
                 								 )
 					);
 		
-		return ResponseEntity.ok(helper.assembleGameResponse(game.get()));
+		return ResponseEntity.ok(helper.assembleGameResponse(game.get(), details.getId()));
 	}
 	
 }

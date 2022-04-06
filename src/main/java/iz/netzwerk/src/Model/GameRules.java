@@ -1,11 +1,8 @@
 package iz.netzwerk.src.Model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Entity
+@Embeddable
 public class GameRules {
 	@GeneratedValue
 	@Id

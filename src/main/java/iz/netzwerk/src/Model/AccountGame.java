@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Embeddable
 public class AccountGame implements Serializable{

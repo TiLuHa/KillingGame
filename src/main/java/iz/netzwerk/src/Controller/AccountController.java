@@ -1,9 +1,12 @@
 package iz.netzwerk.src.Controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import iz.netzwerk.src.Security.UserDetailsImpl;
+import iz.netzwerk.src.helper.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +27,9 @@ public class AccountController {
 	
 	@Autowired
 	JwtUtils jwtUtils;
+
+	@Autowired
+	Helper helper;
 	
 	@GetMapping("")
 	@PreAuthorize("hasAuthority('ADMIN')")
@@ -35,7 +41,7 @@ public class AccountController {
 	}
 	
 	@GetMapping("/{Id}")
-	@PreAuthorize("hasAuthority('ADMIN') or principal.getId() == #id")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	ResponseEntity<?> getAccountById(@PathVariable("Id") Long id)
 	{	
 		Optional<Account> acc = repo.findById(id);
@@ -43,6 +49,18 @@ public class AccountController {
 		if (acc.isEmpty())
 			return (ResponseEntity<?>) new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
 		
+		return ResponseEntity.ok(new AccountResponse(acc.get()));
+	}
+
+	@GetMapping("/me")
+	ResponseEntity<?> getAccountById(Principal p)
+	{
+		UserDetailsImpl details = helper.getUserDetails(p);
+		Optional<Account> acc = repo.findById(details.getId());
+
+		if (acc.isEmpty())
+			return (ResponseEntity<?>) new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+
 		return ResponseEntity.ok(new AccountResponse(acc.get()));
 	}
 }
