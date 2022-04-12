@@ -18,7 +18,7 @@ export default new Vuex.Store({
   state: getDefaultState(),
   getters: {
     isLoggedIn: state => {
-      return state.token
+      return state.token != null ? true : false
     },
     getUser: state => {
       return state.user

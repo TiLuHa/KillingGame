@@ -23,6 +23,6 @@ export default {
   },
   getUser() {
     console.log(store.getters.getUser)
-    return store.getters.getUser
+    return store.getters.getUser()
   }
 }

@@ -12,17 +12,20 @@ const routes = [
   {
     path: "/",
     component: Home,
-    name: 'Home'
+    name: 'Home',
+    meta: { requiresAuth: false}
   },
   {
     path: '/createGame',
     component: CreateGame,
-    name: 'Neues Spiel erstellen'
+    name: 'Neues Spiel erstellen',
+    meta: { requiresAuth: true}
   },
   {
     path: '/games',
     component: PlayerGameView,
-    name: 'Spieleübersicht'
+    name: 'Spieleübersicht',
+    meta: { requiresAuth: true}
   }
 ]
 
@@ -32,9 +35,15 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
-  if (to.name !== 'Home' && !AuthService.isAuthenticated()) next({ name: 'Home' })
-  else next()
+router.beforeEach((to) => {
+  console.log(AuthService.isAuthenticated())
+  if (to.meta.requiresAuth && !AuthService.isAuthenticated()) {
+    return {
+      path: '/',
+
+      // query: { redirect: to.fullPath }
+    }
+  }
 })
 
 export { routes }

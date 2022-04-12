@@ -7,9 +7,7 @@
       ></v-app-bar-nav-icon>
 
       <v-toolbar-title>
-        <!-- <router-link to="/"> -->
         KillingGame
-        <!-- </router-link> -->
       </v-toolbar-title>
 
       <v-spacer />
@@ -52,18 +50,6 @@
             </v-container>
           </v-card>
         </v-dialog>
-
-        <!-- Register Dialog -->
-        <!-- <v-dialog>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn color="accent" v-bind="attrs" v-on="on">
-              Registrieren
-            </v-btn>
-          </template>
-          <v-card>
-            <register></register>
-          </v-card>
-        </v-dialog> -->
       </div>
     </v-app-bar>
 
