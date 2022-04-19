@@ -30,6 +30,9 @@ public class Game {
 	@ManyToOne(optional = false)
 	private Account creator;
 
+	@Embedded
+	private GameRules gameRules;
+
 	public Game(String name, String code, Account creator)
 	{
 		this.killingMethods = new ArrayList<>();

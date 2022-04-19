@@ -2,12 +2,12 @@ package iz.netzwerk.src.repositories;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import iz.netzwerk.src.Model.AccountGamePlayerMapping;
-import iz.netzwerk.src.Model.Player;
 
 public interface AccountGamePlayerRepository extends CrudRepository<AccountGamePlayerMapping, Serializable>{
 	@Query(
@@ -17,10 +17,10 @@ public interface AccountGamePlayerRepository extends CrudRepository<AccountGameP
 	List<AccountGamePlayerMapping> getEntriesByAccount(Long id);
 	
 	@Query(
-			value = "SELECT * FROM ACCOUNT_GAME_PLAYER_MAPPING WHERE ACC_ID = ?1 AND GAME_ID = ?2", 
+			value = "SELECT PLAYER_ID FROM ACCOUNT_GAME_PLAYER_MAPPING WHERE ACC_ID = ?1 AND GAME_ID = ?2", 
 			nativeQuery = true
 	)
-	List<AccountGamePlayerMapping> getEntriesByAccountAndGame(Long aId, Long gId);
+	Long getPlayerIdByAccountAndGame(Long aId, Long gId);
 
 	@Query(
 			value = "SELECT * FROM ACCOUNT_GAME_PLAYER_MAPPING WHERE GAME_ID = ?1", 

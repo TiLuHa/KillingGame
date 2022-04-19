@@ -19,6 +19,7 @@ public class GameResponse {
 	public Account creator;
 	public List<GamePlayerResponse> players;
 	public List<GamePlayerResponse> leaders;
+	public Long playerId;
 	
 	public GameResponse()
 	{}
@@ -42,9 +43,10 @@ public class GameResponse {
 		leaders.forEach((l) -> this.leaders.add(new GamePlayerResponse(l)));
 	}
 	
-	public GameResponse(Game g, List<Player> players, List<Player> leaders)
+	public GameResponse(Game g, List<Player> players, List<Player> leaders, Long playerId)
 	{
 		this(g, leaders);
 		players.forEach((p) -> this.players.add(new GamePlayerResponse(p)));
+		this.playerId = playerId;
 	}
 }

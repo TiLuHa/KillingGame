@@ -1,7 +1,6 @@
 package iz.netzwerk.src.helper;
 
 import java.security.Principal;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import iz.netzwerk.src.Model.Account;
 import iz.netzwerk.src.Model.AccountGame;
-import iz.netzwerk.src.Model.AccountGamePlayerMapping;
 import iz.netzwerk.src.Model.Game;
 import iz.netzwerk.src.Model.Player;
 import iz.netzwerk.src.Security.UserDetailsImpl;
@@ -35,11 +33,12 @@ public class Helper {
 	@Autowired
 	PlayerRepository playerRepo;
 	
-	public GameResponse assembleGameResponse(Game g)
+	public GameResponse assembleGameResponse(Game g, Long accId)
 	{
 		List<Player> leaders = (List<Player>) playerRepo.findAllById(agpRepo.getLeaderIdsOfGame(g.getId()));
 		List<Player> players = (List<Player>) playerRepo.findAllById(agpRepo.getPlayerIdsOfGame(g.getId()));
-		return new GameResponse(g, players, leaders);
+		Long playerId = agpRepo.getPlayerIdByAccountAndGame(accId, g.getId());
+		return new GameResponse(g, players, leaders, playerId);
 	}
 	
 	public List<Player> getLeadersOfGame(Game g)

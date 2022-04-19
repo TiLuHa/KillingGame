@@ -9,7 +9,10 @@ public class Mission {
 	@Id
 	@GeneratedValue
 	private Long Id;
-	
+
+	@ManyToOne
+	public Game g;
+
 	@OneToOne
 	public Player contractor;
 	
